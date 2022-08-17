@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const sequelize = require('../models/index').sequelize;
 const { DataTypes } = require("sequelize"); 
-const book = require('../models/book')(sequelize, DataTypes);
+const library = require('../models/book')(sequelize, DataTypes);
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
@@ -12,40 +12,38 @@ router.get('/', async function(req, res, next) {
 
 /* GET books page. */
 router.get('/books', async function(req, res, next) {
-  const books = await book.findAll();
+  const books = await library.findAll();
   // res.json(books);
-  res.render('books');
+  res.render('index', {books, title: 'Books'});
    
 });
 
 /* GET create now book form page */
 router.get('/books/new', async function(req, res, next) {
-  res.render('new-book');
+  res.render('new-book', {title:"New Book"});
 });
 /* GET book detail page */
 router.get('/books/:id', async function(req, res, next) {
-  const showbook = await book.findByPk(req.params.id);
-  res.json(showbook);
+  const bookDetail = await library.findByPk(req.params.id);
+  res.render('update-book', {bookDetail, title: bookDetail.title});
 });
 
 
 /* POST create new book form page */
 router.post('/books/new', async function(req, res, next) {
-  await book.create(req.body);
-  res.send("New book added");
-  //res.redirect('/books');
+  await library.create(req.body);
+  res.redirect('/books');
 });
 /* POST updates book page */
 router.post('/books/:id', async function(req, res, next) {
-  await book.update(req.body, {where: {id: req.params.id}});
-  res.send("Book updated");  
+  await library.update(req.body, {where: {id: req.params.id}});
+  res.redirect('/books');  
 });
 
 /* POST deletes book */
 router.post('/books/:id/delete', async function(req, res, next) {
- const deleteBook =  await book.findByPk(req.params.id);
- book.destroy(deleteBook);
- res.send('Book deleted');
+ await library.destroy({where: {id: req.params.id}});
+ res.redirect('/books');
 });
 
 

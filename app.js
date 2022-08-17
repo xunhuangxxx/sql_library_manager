@@ -24,7 +24,7 @@ try {
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -43,7 +43,7 @@ app.use(function(req, res, next) {
   error.message = "Sorry! We couldn't find the page you were looking for.";
   console.log(error.status+':'+ error.message);
   res.status(error.status, {error});
-  res.render('page-not-found', {error});
+  res.render('page-not-found', {error, title:'Page Not Found'});
   //next(createError(404));
 });
 
@@ -60,7 +60,9 @@ app.use(function(err, req, res, next) {
   }
   // render the error page
   res.status(err.status || 500, {err});
-  res.render('error');
+  res.render('error', {title: 'Page Not Found'});
 });
+
+
 
 module.exports = app;
