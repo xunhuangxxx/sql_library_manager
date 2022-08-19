@@ -1,12 +1,27 @@
 extends layout
 
 block content
-   h1 New Book 
-   form(method="post" action='/books/new')  
-        h2(class="error") Oooops!
-           ul(class="error")
-              li Title is required
-              li Author is required
+   h1 New Book  
+   div(class="error-div")
+       h2(class="error") Oooops!
+       ul(class="error")
+          li Title is required
+          li Author is required
+   script. 
+      var validation = () => {
+         const title = document.querySelector('#title');
+         const author = document.querySelector('#author');
+         if(!title.value || !author.value){
+            document.querySelector('.error-div').style.display = "block";
+            return false;
+         }else{
+            return true;
+         }       
+      } 
+     
+
+
+   form(method="post" action='/books/new' onsubmit="return validation()")
        p
            label(for="title") Title 
            input(name="title" type="text" id="title")
@@ -20,6 +35,6 @@ block content
            label(for="year") Year 
            input(name="year" type="text" id="year")
        p 
-           input(type="submit" value="Create New Book")
+           input(class="button" type="submit" value="Create New Book")
 
 

@@ -1,8 +1,47 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px 'Lora', serif;
+  background-color: rgb(252 252 242);
+  font-size: 24px;
+  color:#505050;
+  display: block;
 }
 
 a {
-  color: #00B7FF;
+  text-decoration: none;
+}
+
+th {
+  padding: 15px;
+  border: 1px solid;
+  background-color: #5b6a7c;
+  color: white;
+}
+
+td{
+  border: 1px dotted;
+  padding: 10px 20px;
+}
+
+.title {
+  background-color: #dde9d1;
+}
+
+.button {
+  padding: 10px 15px;
+  font-size: 18px;
+  color: white;
+  background-color: #84abbd;
+  border: 0;
+  border-radius: 5px;
+  box-shadow: 1.5px 1px rgb(104 129 142);
+  text-shadow: .5px .8px rgb(153, 166, 169);
+}
+
+.error-div {
+  display:none;
+}
+
+.error {
+  color: rgb(208, 94, 94)
 }

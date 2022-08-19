@@ -2,11 +2,23 @@ extends layout
 
 block content
    h1 Update Book 
-   form(method="post" action=`/books/${bookDetail.id}`)  
-      h2(class="error") Oooops!
-           ul(class="error")
-              li Title is required
-              li Author is required
+   div(class="error-div")
+       h2(class="error") Oooops!
+       ul(class="error")
+          li Title is required
+          li Author is required
+   script. 
+      var validation = () => {
+         const title = document.querySelector('#title');
+         const author = document.querySelector('#author');
+         if(!title.value || !author.value){
+            document.querySelector('.error-div').style.display = "block";
+            return false;
+         }else{
+            return true;
+         }       
+      } 
+   form(method="post" action=`/books/${bookDetail.id}` onsubmit="return validation()")  
       p 
         label(for="title") Title
         input(name="title" type="text" id="title" value=`${bookDetail.title}`)
@@ -20,14 +32,14 @@ block content
         label(for="year") Year
         input(name="year" type="text" id="year" value=`${bookDetail.year}`)    
       p 
-        input(type="submit" value="Update Book")
+        input(class="button" type="submit" value="Update Book")
 
    form(method="post" action=`/books/${bookDetail.id}/delete` onsubmit="return confirm('Do you really want to delete this book?');") 
 
       p 
         a(class="button" href="/books") Cancel
       p 
-        input(type="submit" value="Delete Book")    
+        input(class="button" type="submit" value="Delete Book")    
             
 
 
