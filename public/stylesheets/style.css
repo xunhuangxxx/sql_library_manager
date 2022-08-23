@@ -45,3 +45,7 @@ td{
 .error {
   color: rgb(208, 94, 94)
 }
+
+.booklink {
+  text-decoration: dashed;
+}

@@ -53,14 +53,14 @@ app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
   //Create global error
-  if(err.status !== 500){
+  if(err.status!==500){
     err.status = 500;
     err.message = "Sorry! There was an unexpected error on the server";
     console.log(err.status+':'+ err.message);
   }
-  // render the error page
-  res.status(err.status || 500, {err});
-  res.render('error', {title: 'Page Not Found'});
+    res.status(500, {err});
+    res.render('error', {title: 'Page Not Found', err});
+  
 });
 
 

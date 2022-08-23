@@ -14,7 +14,9 @@ block content
     tbody 
       each book in books 
         tr  
-          td(class="title")= book.title 
+          td(class="title")
+            a(class="booklink" href=`/books/${book.id}`)= book.title
+              
           td(class="author")= book.author 
           td(class="genre")= book.genre 
           td(class="year")= book.year

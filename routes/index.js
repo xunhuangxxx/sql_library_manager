@@ -25,7 +25,15 @@ router.get('/books/new', async function(req, res, next) {
 /* GET book detail page */
 router.get('/books/:id', async function(req, res, next) {
   const bookDetail = await library.findByPk(req.params.id);
-  res.render('update-book', {bookDetail, title: bookDetail.title});
+
+  if(bookDetail === null){
+    const error = new Error("Sorry! We couldn't find the book you were looking for.");
+    error.status = 500;
+    next(error);
+  }else{
+    res.render('update-book', {bookDetail, title: bookDetail.title});
+  }
+  
 });
 
 
@@ -37,6 +45,7 @@ router.post('/books/new', async function(req, res, next) {
 /* POST updates book page */
 router.post('/books/:id', async function(req, res, next) {
   await library.update(req.body, {where: {id: req.params.id}});
+
   res.redirect('/books');  
 });
 
