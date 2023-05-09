@@ -1,2 +1,2 @@
 # library_managing_app
-sql library manager
+library_managing_app
